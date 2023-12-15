@@ -6,37 +6,52 @@ export const YouTubeForm = () => {
   const { register, control, handleSubmit} = form
 
   // esta es la forma larga de hacerla,
-  const { name, ref, onChange, onBlur} = register('username')
+  const { name, ref, onChange, onBlur} = register('username',
+    {required: {
+      value: true,
+      message: 'Username is requiered'
+  }})
 
   const onSubmit = (data) => {
     console.log('form submitted', data);
   }
 
+  // The noValidate prop in a form element is used to disable browser's built-in form validation   
+
   return (
     <>
     <div>
       <form onSubmit={handleSubmit(onSubmit)} noValidate> 
-      // The noValidate prop in a form element is used to disable browser's built-in form validation
+     
         <label htmlFor='username' >USERNAME</label>
         <input type="text" 
                 id="username" 
                 name={name} 
                 ref={ref} 
                 onChange={onChange}
-                onBlur={onBlur} >
+                onBlur={onBlur}
+                >
         </input>
 
-        <label htmlFor='email' >USERNAME</label>
+        <label htmlFor='email' >Email</label>
         <input type="email" 
                 id="email" 
                 // o se puede crear de esta forma que es resumida
-                {...register('email')} >
+                {...register('email',{
+                  pattern: {
+                    value: 
+                    /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: 'Invalid email format'
+                  }
+                })} >
         </input>
 
-        <label htmlFor='channel' >USERNAME</label>
+        <label htmlFor='channel' >channel</label>
         <input type="text" 
                 id="channel" 
-                {...register('channel')} >
+                {...register('channel',{
+                  required: 'Channel is required'
+                })} >
         </input>
 
         <button>Submit</button>
