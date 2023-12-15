@@ -1,16 +1,20 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { products as InitialProducts } from './mocks/prod.json'
 import { Header } from './components/Header'
 import Footer from './components/Footer'
 import Cart from './components/Cart'
 import Products from './components/Products'
+import { Context } from './context/filterContext'
 
-function App () {
-  const [filters, setFilters] = useState({
-    category: 'all',
-    price: 0
-  })
+function useFilters () {
+  // const [filters, setFilters] = useState({
+  //   category: 'all',
+  //   price: 0
+  // })
+
+  const filters = useContext(Context)
+  
 
   const filterProducts = (arr) => {
     return [...arr].filter(producto => {
@@ -23,11 +27,17 @@ function App () {
     })
   }
 
+  return { filterProducts, setFilters }
+}
+
+function App () {
+  const [initialProducts] = useState(InitialProducts)
+  const { filterProducts, setFilters } = useFilters()
   return (
     <>
       <Header changeFilters={setFilters} ></Header>
       {/* <Cart></Cart> */}
-      <Products productos={filterProducts(InitialProducts)}/>
+      <Products productos={filterProducts(initialProducts)}/>
       <Footer></Footer>
     </>
   )
