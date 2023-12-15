@@ -1,0 +1,15 @@
+.footer {
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  width: 300px;
+  border-radius: 15px;
+  background-color: rgba(102, 89, 89, 0.4);
+
+}
+
+.footer h4,
+h5 {
+  padding: 0;
+  margin: 0;
+}
