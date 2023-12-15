@@ -3,7 +3,10 @@ import {DevTool} from '@hookform/devtools'
 
 export const YouTubeForm = () => {
   const form = useForm()
-  const { register, control, handleSubmit} = form
+  const { register, control, handleSubmit, formState} = form
+
+  // este es el error que desplegamos en la pantalla
+  const {errors} = formState
 
   // esta es la forma larga de hacerla,
   const { name, ref, onChange, onBlur} = register('username',
@@ -32,6 +35,7 @@ export const YouTubeForm = () => {
                 onBlur={onBlur}
                 >
         </input>
+        <p className='error'>{errors.username?.message}</p>
 
         <label htmlFor='email' >Email</label>
         <input type="email" 
@@ -42,9 +46,21 @@ export const YouTubeForm = () => {
                     value: 
                     /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                     message: 'Invalid email format'
+                  }, 
+                  // Pueden escribirse reglas de esta forma, o mas complejas, haciendo que validate reciba un objeto con varias validaciones
+                  // validate: (fieldValue) => {
+                  //   return fieldValue !== 'admin@example.com' || "Enter a different email address"
+                  // }
+                  validate: {
+                    notAdmi: (fieldValue) => fieldValue === 'admin@example.com' ? "Enter a different email address" : undefined
+                    ,
+                    notBlackListed: (fieldValue) => fieldValue.endsWith('baddomain.com') ? "Domain not allowed" : undefined
+                  
+            
                   }
                 })} >
         </input>
+        <p className='error'> {errors.email?.message}</p>
 
         <label htmlFor='channel' >channel</label>
         <input type="text" 
@@ -53,6 +69,7 @@ export const YouTubeForm = () => {
                   required: 'Channel is required'
                 })} >
         </input>
+        <p className='error'>{errors.channel?.message}</p>
 
         <button>Submit</button>
 

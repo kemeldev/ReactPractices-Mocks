@@ -26,3 +26,7 @@ input[type='data'] {
   border-radius: 4px;
   margin-bottom: 20px;
 }
+
+.error {
+  color: red;
+}
