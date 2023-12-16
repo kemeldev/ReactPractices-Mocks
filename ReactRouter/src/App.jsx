@@ -1,5 +1,5 @@
 import './App.css'
-import { Link, Route, Routes, useParams } from 'react-router-dom'
+import { Link, Route, Routes, useParams, Outlet } from 'react-router-dom'
 
 const Home = () => <h3>Home  .... Contenido de la pagina</h3>
 
@@ -29,10 +29,21 @@ const Tacos = () => {
   const { nombre } = useParams()
   return (
     <div>
+      <Outlet />
       <h3>Tacos</h3>
       {/* Agregado "nombre de ruta dinámica" como texto explicativo */}
       <p>nombre de ruta dinámica: {nombre}</p>
+      <Link to='details'>Ir a los detalles del taco</Link>
+      <Outlet />
     </div>
+  )
+}
+
+const TacoDetails = () => {
+  const { nombre } = useParams()
+
+  return (
+    <h2>Taco Details {nombre} OUTLET</h2>
   )
 }
 
@@ -54,7 +65,9 @@ function App () {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/search-page' element={<SearchPage />} />
-          <Route path='/tacos/:nombre' element={<Tacos />} />
+          <Route path='/tacos/:nombre' element={<Tacos />}>
+            <Route path='details' element={<TacoDetails />} />
+          </Route>
 
         </Routes>
       </div>
