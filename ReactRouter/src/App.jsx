@@ -1,5 +1,6 @@
 import './App.css'
-import { Link, Route, Routes, useParams, Outlet, NavLink as NavLinkReacRouter } from 'react-router-dom'
+import { Navigate, useNavigate, Link, Route, Routes, useParams, Outlet, NavLink as NavLinkReacRouter } from 'react-router-dom'
+import { useAuth, AuthProvider } from './useAuth'
 
 const Home = () => <h3>Home  .... Contenido de la pagina</h3>
 
@@ -39,6 +40,21 @@ const Tacos = () => {
   )
 }
 
+const Login = () => {
+  const { login } = useAuth()
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    login()
+    navigate('/search-page')
+  }
+  return (
+    <div>
+      <button onClick={handleClick}>Login</button>
+    </div>
+  )
+}
+
 const TacoDetails = () => {
   const { nombre } = useParams()
 
@@ -60,9 +76,17 @@ const NavLinkNuestro = ({ to, children, ...props }) => {
   )
 }
 
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated } = useAuth()
+  if (!isAuthenticated) {
+    return <Navigate to='/login' />
+  }
+  return children
+}
+
 function App () {
   return (
-    <>
+    <AuthProvider>
       <div className='App'>
         <header>
           <h2>Prueba react DOM</h2>
@@ -86,7 +110,8 @@ function App () {
         </header>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/search-page' element={<SearchPage />} />
+          <Route path='/search-page' element={<ProtectedRoute><SearchPage /></ProtectedRoute>} />
+          <Route path='/login' element={<Login />} />
           <Route path='/tacos/:nombre' element={<Tacos />}>
             <Route path='details' element={<TacoDetails />} />
           </Route>
@@ -96,7 +121,7 @@ function App () {
 
         </Routes>
       </div>
-    </>
+    </AuthProvider>
   )
 }
 
