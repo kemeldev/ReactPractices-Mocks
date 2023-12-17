@@ -1,5 +1,5 @@
 import './App.css'
-import { Link, Route, Routes, useParams, Outlet } from 'react-router-dom'
+import { Link, Route, Routes, useParams, Outlet, NavLink as NavLinkReacRouter } from 'react-router-dom'
 
 const Home = () => <h3>Home  .... Contenido de la pagina</h3>
 
@@ -47,6 +47,19 @@ const TacoDetails = () => {
   )
 }
 
+const NavLinkNuestro = ({ to, children, ...props }) => {
+  return (
+    <NavLinkReacRouter
+      {...props}
+      className={({ isActive }) => { return isActive ? 'is-active' : undefined }}
+      to={to}
+
+    >{children}
+
+    </NavLinkReacRouter>
+  )
+}
+
 function App () {
   return (
     <>
@@ -56,8 +69,17 @@ function App () {
           <nav>
             <ul>
               {/* para hacer una SPA hay que cambiar el a tag por link y href por to */}
-              <li><Link to='/search-page'>Go to search</Link></li>
-              <li><Link to='/'>Go to Home</Link></li>
+              <li><NavLinkNuestro to='/search-page'>Go to search</NavLinkNuestro></li>
+              <li>
+                {/* Este nav link nos permite tener el classname de activo, y de este modo darle props in CSS,
+                Una vez creado el componente podemos eliminar lo de classNmae porque ya lo jalaria del componente, pero lo dejamos para que se vea */}
+                <NavLinkNuestro
+                  className={({ isActive }) => { return isActive ? 'is-active' : undefined }}
+                  to='/'
+                >
+                  Go to Home
+                </NavLinkNuestro>
+              </li>
             </ul>
           </nav>
 
@@ -68,6 +90,9 @@ function App () {
           <Route path='/tacos/:nombre' element={<Tacos />}>
             <Route path='details' element={<TacoDetails />} />
           </Route>
+
+          Error 404 pirata, el 404 mas adecuado se hace desde el servidor no puede ser creado desde el cliente, que es lo que estamos haciendo aca
+          <Route path='*' element={<h1>Not found</h1>} />
 
         </Routes>
       </div>

@@ -1,7 +1,11 @@
 import {useForm} from 'react-hook-form'
 import {DevTool} from '@hookform/devtools'
 
+let counter = 0
+
 export const YouTubeForm = () => {
+
+  counter ++
   const form = useForm()
   const { register, control, handleSubmit, formState} = form
 
@@ -24,6 +28,7 @@ export const YouTubeForm = () => {
   return (
     <>
     <div>
+      <h1>YouTube Form {counter/2}</h1>
       <form onSubmit={handleSubmit(onSubmit)} noValidate> 
      
         <label htmlFor='username' >USERNAME</label>
