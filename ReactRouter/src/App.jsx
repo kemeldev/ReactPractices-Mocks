@@ -22,6 +22,7 @@ const SearchPage = () => {
         ))
       }
       </ul>
+      <img src='https://images.unsplash.com/photo-1702726694297-791e380c538a?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' alt='' />
     </div>
   )
 }
@@ -44,7 +45,10 @@ const TacoDetails = () => {
   const { nombre } = useParams()
 
   return (
-    <h2>Taco Details {nombre} OUTLET</h2>
+    <>
+      <h2>Taco Details {nombre} OUTLET</h2>
+
+    </>
   )
 }
 
@@ -116,6 +120,9 @@ function App () {
           <Route path='/search-page' element={<ProtectedRoute><SearchPage /></ProtectedRoute>} />
           <Route path='/login' element={<Login />} />
           <Route path='/tacos/:nombre' element={<ProtectedRoute><Tacos /></ProtectedRoute>}>
+            {/* // Index element es una opcion que nos permite renderizar desde que entramos a la pagina sin tener que accesar
+            // esto es del video 9 de codeEvolution */}
+            <Route index element={<Home />} />
             <Route path='details' element={<TacoDetails />} />
           </Route>
 

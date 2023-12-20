@@ -1,8 +1,20 @@
-# React + Vite
+De la clase de midudev quedó pendiente revisar el hook:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+    useSearchParams
 
-Currently, two official plugins are available:
+    que permite desde la pagina que estamos renderizando hacer alguna activacion o cambio y que nos haga una redireccion
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    Revisar el video 12 de codeEvolution!!!
+
+    un searchParams es algo como esto
+    url: http://locahost3000/page/tacos?filter=active?color=red  etc
+
+
+    
+Tambien pendiente el tema de links relativos ( que toman la ruta del componente mas cercano) y de links absolutos
+    esto es mas un concepto que algun tema profundo
+
+
+Revisar el lazy loading 
+
+    video 14 de CodeEvolution
